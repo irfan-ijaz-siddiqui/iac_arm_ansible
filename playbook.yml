@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: Deploying a sample arm template
+      azure_rm_deployment:
+        state: absent
+        resource_group_name: "{{ resource_group_name }}"
+        location: "westeurope"
+        template: "{{ lookup('file', 'arm-template.json') }}"
+        parameters: "{{ (lookup('file', 'test.parameters.json') | from_json).parameters }}"
